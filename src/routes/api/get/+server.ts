@@ -6,7 +6,6 @@ import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ platform, cookies }) => {
 	if (!platform) throw error(500, 'No platform in worker');
-	if (!cookies) throw error(404, 'No cookies present');
 
 	let user = cookies.get('user');
     let token = cookies.get('token');
