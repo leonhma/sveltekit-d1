@@ -5,7 +5,7 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@cloudflare/workers-types@npm:^4.20221111.1":
+"@cloudflare/workers-types@npm:^4.20221111.1, @cloudflare/workers-types@npm:latest":
   version: 4.20230228.0
   resolution: "@cloudflare/workers-types@npm:4.20230228.0"
   checksum: a66c4cf1c9a7ddf47a224288495a6f4746841631d252318bba3875b2d160aac93c3b6458a35cb5375d23d2557ce9c7f54981bbb573f9974bf2b558d7ccf1c988
@@ -404,6 +404,13 @@ __metadata:
   version: 7.3.13
   resolution: "@types/semver@npm:7.3.13"
   checksum: 00c0724d54757c2f4bc60b5032fe91cda6410e48689633d5f35ece8a0a66445e3e57fa1d6e07eb780f792e82ac542948ec4d0b76eb3484297b79bd18b8cf1cb0
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "@types/uuid@npm:9.0.1"
+  checksum: c472b8a77cbeded4bc529220b8611afa39bd64677f507838f8083d8aac8033b1f88cb9ddaa2f8589e0dcd2317291d0f6e1379f82d5ceebd6f74f3b4825288e00
   languageName: node
   linkType: hard
 
@@ -2662,8 +2669,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sveltekit-d1@workspace:."
   dependencies:
+    "@cloudflare/workers-types": latest
     "@sveltejs/adapter-cloudflare": ^2.2.0
     "@sveltejs/kit": ^1.5.0
+    "@types/uuid": ^9.0.1
     "@typescript-eslint/eslint-plugin": ^5.45.0
     "@typescript-eslint/parser": ^5.45.0
     eslint: ^8.28.0
