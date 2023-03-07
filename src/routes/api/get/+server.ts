@@ -32,5 +32,8 @@ export const POST: RequestHandler = async ({ platform, cookies }) => {
 
 	if (!results) throw error(404, 'No user in database');
 
+	console.log(results)
+	console.log(results[0])
+	console.log(JSON.stringify(results[0]))
 	return new Response(JSON.stringify(results[0]));
 };
