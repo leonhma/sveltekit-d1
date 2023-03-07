@@ -5,7 +5,7 @@ import { error, type RequestHandler } from '@sveltejs/kit';
 
 
 export const POST: RequestHandler = async ({ platform, cookies }) => {
-	if (!platform) throw error(500, 'No platform in worker');
+	if (!platform) throw error(501, 'No platform in worker');
 
 	let user = cookies.get('user');
     let token = cookies.get('token');
@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ platform, cookies }) => {
 			user,
 			hash_sha2(token)
 		).then((res) => {
-			if (!res.success) throw error(500, 'Failed to insert user into database');
+			if (!res.success) throw error(502, 'Failed to insert user into database');
 		});
 		cookies.set('user', user);
 		cookies.set('token', token);
