@@ -14,9 +14,10 @@ export const POST: RequestHandler = async ({ platform, cookies }) => {
 		token = new TextDecoder().decode(crypto.getRandomValues(new Uint8Array(32)));
 		await executeQuery(
 			platform,
-			'insert into users (user, token, number) values (?1, ?2, 0)',
+			'insert into users (user, token, number) values (?1, ?2, ?3)',
 			user,
-			hash_sha2(token)
+            hash_sha2(token),
+            0
 		).then((res) => {
 			if (!res.success) throw error(502, 'Failed to insert user into database');
 		});
