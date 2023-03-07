@@ -10,6 +10,7 @@ export const POST: RequestHandler = async ({ platform, cookies }) => {
 	if (!user || !token) {
 		user = crypto.randomUUID();
 		token = bufferToHex(crypto.getRandomValues(new Uint8Array(32)).buffer);
+		console.log(token, hash_sha2(token));
 		await executeQuery(
 			platform,
 			'insert into users (user, token, number) values (?1, ?2, ?3)',
