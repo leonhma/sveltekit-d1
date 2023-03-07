@@ -3,6 +3,7 @@ import { executeQuery } from '$lib/db';
 import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ platform, cookies, request }) => {
+	console.log(platform)
 	if (!platform) throw error(500, 'No platform in worker');
 	if (!cookies) throw error(404, 'No cookies present');
 	if (!request.body) throw error(404, 'No body in request');
