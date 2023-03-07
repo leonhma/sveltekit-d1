@@ -7,6 +7,7 @@ export const POST: RequestHandler = async ({ platform, cookies }) => {
 
 	let user = cookies.get('user');
 	let token = cookies.get('token');
+	console.log(user, token)
 	if (!user || !token) {
 		user = crypto.randomUUID();
 		token = bufferToHex(crypto.getRandomValues(new Uint8Array(32)).buffer);
