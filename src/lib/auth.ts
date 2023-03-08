@@ -39,8 +39,12 @@ export async function check_create(platform: App.Platform, cookies: Cookies) {
 	let user = cookies.get('user');
 	let token = cookies.get('token');
 
-	if (!user || !token) { authenticated = false }
+	if (!user || !token) {
+		console.log('no auth')
+		authenticated = false
+	}
 	else {
+		console.log('checking for valid auth')
 		const { results } = await executeQuery(
 			platform,
 			'select number from users where user = ?1 and token = ?2',
@@ -52,6 +56,7 @@ export async function check_create(platform: App.Platform, cookies: Cookies) {
 	}
 
 	if (!authenticated) {
+		console.log('creating new auth')
 		user = crypto.randomUUID();
 		token = bufferToHex(crypto.getRandomValues(new Uint8Array(32)).buffer);
 		await executeQuery(
