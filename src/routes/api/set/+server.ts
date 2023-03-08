@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ platform, cookies, request }) => {
 		'update users set number = ?3 where user = ?1 and token = ?2',
 		user,
 		await hash_sha2(token),
-		parseInt(JSON.parse(request.body.getReader.toString()).number)
+		await request.json().then(j => j.number)
 	);
 
 	if (!success) throw error(513, 'Failed to update number');
