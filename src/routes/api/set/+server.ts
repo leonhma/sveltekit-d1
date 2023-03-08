@@ -20,6 +20,6 @@ export const POST: RequestHandler = async ({ platform, cookies, request }) => {
 		parseInt(JSON.parse(request.body.getReader.toString()).number)
 	);
 
-	if (!success) throw error(500, 'Failed to update number');
+	if (!success) throw error(513, 'Failed to update number');
 	return new Response('OK');
 };
