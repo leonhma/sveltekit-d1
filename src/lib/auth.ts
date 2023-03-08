@@ -1,4 +1,7 @@
+import type { D1Result } from "@cloudflare/workers-types";
+import { error, type Cookies } from "@sveltejs/kit";
 import { Buffer } from "buffer/"
+import { executeQuery } from "./db";
 
 export function bufferToHex(buffer: ArrayBuffer): string {
 	return Array.prototype.map
@@ -28,4 +31,39 @@ export async function hash_sha2(text: string) {
 	return bufferToHex(
 		await crypto.subtle.digest('SHA-256', hexToBuffer(text))
 	);
+}
+
+export async function check_create(platform: App.Platform, cookies: Cookies) {
+	let authenticated = true;
+
+	let user = cookies.get('user');
+	let token = cookies.get('token');
+
+	if (!user || !token) { authenticated = false }
+	else {
+		const { results } = await executeQuery(
+			platform,
+			'select number from users where user = ?1 and token = ?2',
+			user,
+			await hash_sha2(token)
+		) as D1Result<{ number: number }>;
+
+		if (!results || !results.length) { authenticated = false }
+	}
+
+	if (!authenticated) {
+		user = crypto.randomUUID();
+		token = bufferToHex(crypto.getRandomValues(new Uint8Array(32)).buffer);
+		await executeQuery(
+			platform,
+			'insert into users (user, token, number) values (?1, ?2, ?3)',
+			user,
+			await hash_sha2(token),
+			0
+		).then((res) => {
+			if (!res.success) throw error(500, 'Failed to insert user into database');
+		});
+		cookies.set('user', user);
+		cookies.set('token', token);
+	}
 }
