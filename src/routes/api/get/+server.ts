@@ -11,7 +11,7 @@ export const POST: RequestHandler = async ({ platform, cookies }) => {
 	if (!user || !token) {
 		user = crypto.randomUUID();
 		token = bufferToHex(crypto.getRandomValues(new Uint8Array(32)).buffer);
-		console.log(token, hash_sha2(token));
+		console.log(token, await hash_sha2(token));
 		await executeQuery(
 			platform,
 			'insert into users (user, token, number) values (?1, ?2, ?3)',
@@ -32,7 +32,7 @@ export const POST: RequestHandler = async ({ platform, cookies }) => {
 		await hash_sha2(token)
 	);
 
-	if (!results) throw error(404, 'No user in database');
+	if (!results || !results.length) throw error(404, 'No user in database');
 
 	console.log(results)
 	console.log(results[0])

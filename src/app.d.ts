@@ -1,3 +1,5 @@
+import type { D1Database } from '@cloudflare/workers-types';
+
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
@@ -7,8 +9,8 @@ declare global {
 		// interface PageData {}
 		interface Platform {
 			env: {
-				DATABASE: D1Database
-			}
+				DATABASE: D1Database;
+			};
 		}
 	}
 }
